@@ -4,8 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.input.KeyEvent;
 
-import java.awt.event.KeyEvent;
 
 public class EnigmaController {
     @FXML
@@ -20,15 +20,19 @@ public class EnigmaController {
         gridButtons.setVgap(10);
         gridButtons.setHgap(10);
 
+        Criptografia codificatore = new Criptografia(1,0,2,0,3,0,2);
+
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
                 buttons[i * 9 + j] = new Button("" + lettera);
                 buttons[i * 9 + j].setPrefWidth(600 / 10);
-                final char letteraF = lettera;
+                char letteraC = lettera; //variabile con la lettera iniziale che poi verra codificata.
                 buttons[i * 9 + j].setOnAction(e -> {
-                    System.out.println("Ciao " + e.getSource());
-                    System.out.println("Hai premuto la lettera " + letteraF);
+                    char codifica = codificatore.codificaLettera(letteraC);
+                    System.out.println("Lettera codificata: " + codifica);
                 });
+
                 gridButtons.add(buttons[i * 9 + j], j, i);
                 lettera++;
                 if (lettera == '[') return;
@@ -36,8 +40,6 @@ public class EnigmaController {
         }
     }
 
-
-    /**
     @FXML
     public void onKeyPressed(KeyEvent event){
         if (event.getCode().isLetterKey()){
@@ -46,7 +48,9 @@ public class EnigmaController {
             buttons[pos].requestFocus();
         }
     }
-    **/
+
+
+
 
  
 }
